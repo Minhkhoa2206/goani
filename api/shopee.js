@@ -1,4 +1,4 @@
-import chromium from "@sparticuz/chromium-min";
+import chromium from "@sparticuz/chromium";
 import puppeteer from "puppeteer-core";
 
 export default async function handler(req, res) {
@@ -41,7 +41,7 @@ export default async function handler(req, res) {
 
         await page.goto(url,{
 
-            waitUntil:"domcontentloaded",
+            waitUntil:"networkidle2",
             timeout:60000
         });
 
