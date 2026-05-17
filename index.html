@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MKHOME Shopee Scraper</title>
+
+<style>
+
+body{
+    background:#020617;
+    color:white;
+    font-family:Arial;
+    padding:40px;
+}
+
+input{
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:12px;
+    margin-bottom:20px;
+    background:#111827;
+    color:white;
+}
+
+button{
+    padding:15px 25px;
+    border:none;
+    border-radius:12px;
+    background:#2563eb;
+    color:white;
+    cursor:pointer;
+}
+
+.card{
+    margin-top:30px;
+    background:#111827;
+    padding:20px;
+    border-radius:20px;
+}
+
+img{
+    width:300px;
+    border-radius:16px;
+    margin-top:20px;
+}
+
+</style>
+</head>
+<body>
+
+<h1>
+🔥 Shopee Scraper
+</h1>
+
+<input
+id="url"
+placeholder="Dán link Shopee...">
+
+<button onclick="getData()">
+
+Lấy sản phẩm
+
+</button>
+
+<div id="result"></div>
+
+<script>
+
+async function getData(){
+
+    const url =
+    document.getElementById("url").value;
+
+    const result =
+    document.getElementById("result");
+
+    result.innerHTML =
+    "Đang lấy dữ liệu...";
+
+    try{
+
+        const response =
+        await fetch(
+
+            `/api/shopee?url=${encodeURIComponent(url)}`
+
+        );
+
+        const json =
+        await response.json();
+
+        console.log(json);
+
+        if(!json.success){
+
+            result.innerHTML =
+            "❌ " + json.error;
+
+            return;
+        }
+
+        const data =
+        json.data;
+
+        result.innerHTML = `
+
+        <div class="card">
+
+            <h2>
+                ${data.title}
+            </h2>
+
+            <p>
+                ${data.description || ""}
+            </p>
+
+            <img src="${data.image}">
+
+        </div>
+
+        `;
+        
+    }catch(err){
+
+        console.log(err);
+
+        result.innerHTML =
+        "😢 Lỗi fetch API";
+    }
+}
+
+</script>
+
+</body>
+</html>
