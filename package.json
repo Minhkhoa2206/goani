@@ -1,0 +1,9 @@
+{
+  "name": "mkhome-shopee-tool",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "puppeteer-core": "^22.0.0",
+    "@sparticuz/chromium": "^123.0.0"
+  }
+}
